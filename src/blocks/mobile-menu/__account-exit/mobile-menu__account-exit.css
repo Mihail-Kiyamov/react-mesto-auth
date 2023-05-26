@@ -1,0 +1,10 @@
+.mobile-menu__account-exit {
+    margin: 0 0 40px;
+    color: #A9A9A9;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    cursor: pointer;
+    background-color: black;
+    border: none;
+}

@@ -1,0 +1,8 @@
+.header__mobile-menu {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: 30px;
+    background-color: black;
+    border: none;
+}

@@ -1,0 +1,17 @@
+.auth__login-link {
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 640px) {
+    .auth__login-link {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 19px;
+    }
+}

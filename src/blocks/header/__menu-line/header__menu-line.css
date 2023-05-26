@@ -1,0 +1,9 @@
+.header__menu-line {
+    width: 24px;
+    height: 3px;
+    margin-bottom: 6px;
+}
+
+.header__menu-line:last-of-type {
+    margin-bottom: 0;
+}

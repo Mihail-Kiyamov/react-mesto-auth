@@ -1,0 +1,44 @@
+.profile__circle-for-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: none;
+    overflow: hidden;
+    margin-right: 30px;
+    position: relative;
+}
+
+.profile__circle-for-image:before {
+    content: '';
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../../../images/EditPencil.svg") no-repeat center center;
+    z-index: 1;
+}
+.profile__circle-for-image:after {
+    content: '';
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .8);
+}
+
+.profile__circle-for-image:hover:before,
+.profile__circle-for-image:hover:after {
+    display: block;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 640px) {
+    .profile__circle-for-image {
+        margin-bottom: 26px;
+        margin-right: 0;
+    }
+}

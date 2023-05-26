@@ -1,0 +1,30 @@
+.page__container {
+    max-width: 1280px;
+    min-width: 320px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 45px 200px 60px;
+    font-family: 'Inter', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 980px) {
+    .page__container {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .page__container {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .page__container {
+        padding: 28px 0 36px;
+    }
+}

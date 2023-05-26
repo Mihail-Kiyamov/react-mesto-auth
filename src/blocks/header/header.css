@@ -1,0 +1,15 @@
+.header {
+    font-family: 'Inter', Arial, sans-serif;
+    padding-bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 640px) {
+    .header {
+        padding-bottom: 31px;
+    }
+}
