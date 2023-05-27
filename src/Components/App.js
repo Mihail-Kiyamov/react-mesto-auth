@@ -32,21 +32,26 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.getProfileInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .then(() => { handleTokenCheck() })
-      .catch((err) => {
-        console.log(err);
-      });
+    handleTokenCheck()
+      .then(() => {
+        api.getProfileInfo()
+          .then((data) => {
+            setCurrentUser(currentUser => ({
+              ...currentUser,
+              ...data
+            }));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
-    api.getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        console.log(err);
+        api.getInitialCards()
+          .then((data) => {
+            setCards(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
       })
   }, []);
 
@@ -62,23 +67,72 @@ function App() {
   }, [])
 
   function handleTokenCheck() {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      auth.checkToken(token).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          setCurrentUser(currentUser => ({
-            ...currentUser,
-            email: res.email
-          }));
-          navigate("/", { replace: true })
-        }
-      });
+    const token = localStorage.getItem('token');
+    if (token) {
+      return auth.checkToken(token)
+        .then(res => res.data)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setCurrentUser(currentUser => ({
+              ...currentUser,
+              email: res.email
+            }));
+            navigate("/", { replace: true })
+          }
+        })
+        .catch(err => console.log(err));
     }
+    return Promise.reject();
   }
 
-  function handleLogin() {
-    setLoggedIn(true);
+  function handleLogin(password, email) {
+    auth.authorize(password, email)
+      .then((data) => {
+        if (data.token) {
+          navigate('/', { replace: true });
+          setLoggedIn(true);
+
+          api.getProfileInfo()
+            .then((data) => {
+              setCurrentUser(currentUser => ({
+                ...currentUser,
+                ...data
+              }));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          api.getInitialCards()
+            .then((data) => {
+              setCards(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+
+          return true;
+        }
+      })
+      .catch(err => {
+        handleOpenInfoTooltip(false);
+        console.log(err);
+      });
+  }
+
+  function handleRegister(password, email) {
+    auth.register(password, email)
+      .then((res) => {
+        if (res.data) {
+          navigate('/sign-in', { replace: true });
+          handleOpenInfoTooltip(true);
+        }
+      })
+      .catch(err => {
+        handleOpenInfoTooltip(false);
+        console.log(err)
+      });
   }
 
   function handleEditAvatarClick() {
@@ -94,7 +148,6 @@ function App() {
   }
 
   function handleOpenInfoTooltip(successStatus) {
-    console.log(successStatus);
     setIsInfoTooltipSuccess(successStatus);
     setIsInfoTooltipPopupOpen(true);
   }
@@ -198,8 +251,8 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete} />
             } />
-            <Route path='/sign-in' element={<Login handleLogin={handleLogin} />} />
-            <Route path='/sign-up' element={<Register onSubmit={handleOpenInfoTooltip} />} />
+            <Route path='/sign-in' element={<Login onLogin={handleLogin} />} />
+            <Route path='/sign-up' element={<Register onRegister={handleRegister} />} />
           </Routes>
           <Footer />
         </div>

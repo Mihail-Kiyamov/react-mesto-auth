@@ -1,4 +1,3 @@
-import * as auth from '../utils/auth';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -7,7 +6,6 @@ function Register(props) {
         email: '',
         password: ''
     })
-    const navigate = useNavigate();
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -21,17 +19,8 @@ function Register(props) {
     function handleSubmit(e) {
         e.preventDefault();
 
-        auth.register(formValue.password, formValue.email)
-            .then((res) => {
-                if (res.data) {
-                    navigate('/sign-in', { replace: true });
-                    props.onSubmit(true);
-                } else {
-                    props.onSubmit(false);
-                }
-            });
+        props.onRegister(formValue.password, formValue.email);
     }
-
 
     return (
         <div className="auth__container">
@@ -43,7 +32,7 @@ function Register(props) {
                     <span className="auth__input-error email-input-error"></span>
                 </label>
                 <label className="auth__form-field">
-                    <input className="auth__input auth__input_type_password" value={formValue.password} onChange={handleChange} type="text" id="password-input" name="password"
+                    <input className="auth__input auth__input_type_password" value={formValue.password} onChange={handleChange} type="password" id="password-input" name="password"
                         placeholder="Пароль" required />
                     <span className="auth__input-error password-input-error"></span>
                 </label>
