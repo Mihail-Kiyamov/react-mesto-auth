@@ -32,28 +32,30 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    handleTokenCheck()
-      .then(() => {
-        api.getProfileInfo()
-          .then((data) => {
-            setCurrentUser(currentUser => ({
-              ...currentUser,
-              ...data
-            }));
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    if (loggedIn) {
+      handleTokenCheck()
+        .then(() => {
+          api.getProfileInfo()
+            .then((data) => {
+              setCurrentUser(currentUser => ({
+                ...currentUser,
+                ...data
+              }));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
 
-        api.getInitialCards()
-          .then((data) => {
-            setCards(data);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      })
-  }, []);
+          api.getInitialCards()
+            .then((data) => {
+              setCards(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        })
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     const handleResizeWindow = () => {
@@ -92,26 +94,6 @@ function App() {
         if (data.token) {
           navigate('/', { replace: true });
           setLoggedIn(true);
-
-          api.getProfileInfo()
-            .then((data) => {
-              setCurrentUser(currentUser => ({
-                ...currentUser,
-                ...data
-              }));
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-
-          api.getInitialCards()
-            .then((data) => {
-              setCards(data);
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-
           return true;
         }
       })
