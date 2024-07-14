@@ -233,8 +233,8 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete} />
             } />
-            <Route path='/sign-in' element={<Login onLogin={handleLogin} />} />
-            <Route path='/sign-up' element={<Register onRegister={handleRegister} />} />
+            <Route path='/signin' element={<Login onLogin={handleLogin} />} />
+            <Route path='/signup' element={<Register onRegister={handleRegister} />} />
           </Routes>
           <Footer />
         </div>
