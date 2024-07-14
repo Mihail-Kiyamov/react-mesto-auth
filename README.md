@@ -1,6 +1,6 @@
 # Mesto
 
+## [Ссылка на проект](https://mihail-kiyamov.github.io/react-mesto-auth)
+
 Интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
 Реализована регистрация, авторизация и редактирование профиля
-
-https://mihail-kiyamov.github.io/react-mesto-auth
